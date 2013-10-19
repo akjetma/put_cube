@@ -44,6 +44,8 @@ THREE.PointerLockControls = function ( camera ) {
 		objects.push(cube);
 		scene.add(cube);
 
+		ws.send("" + cube.position.x + "  " + cube.position.y + "  " + cube.position.z)
+
 	};
 
 	var onMouseMove = function ( event ) {

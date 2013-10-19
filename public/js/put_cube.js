@@ -7,6 +7,8 @@ var objects = [];
 
 var ray;
 
+var ws;
+
 var blocker = document.getElementById( 'blocker' );
 var instructions = document.getElementById( 'instructions' );
 
@@ -101,6 +103,8 @@ init();
 animate();
 
 function init() {
+    ws = new WebSocket( 'ws://' + window.location.host + "/websocket" );
+    ws.onmessage = function(m) { console.log('websocket message: ' +  m.data); };
 
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
 
@@ -130,29 +134,6 @@ function init() {
 
     mesh = new THREE.Mesh( geometry, material );
     scene.add( mesh );
-
-
-    //// objects
-    //
-    // geometry = new THREE.CubeGeometry( 20, 20, 20 );
-    //
-    // material = new THREE.MeshPhongMaterial( { color: 0xFF0000 } );
-    // material.opacity = 0.5
-    // material.transparent = true;
-    //
-    // for ( var i = 0; i < 500; i ++ ) {
-    //
-    //     mesh = new THREE.Mesh( geometry, material );
-    //     mesh.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
-    //     mesh.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
-    //     mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
-    //  
-    //     scene.add( mesh );
-    //     objects.push( mesh );
-    //
-    // }
-    //
-    ////
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
