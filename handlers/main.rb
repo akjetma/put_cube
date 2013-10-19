@@ -26,3 +26,7 @@ get "/websocket" do
     end
   end
 end
+
+get "/denied" do
+  erb :'elements/header', :layout => :'layouts/main', :locals => { :text => "UGLY. GORILLAS. UGLY. GO. AWAY." }
+end
