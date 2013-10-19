@@ -25,5 +25,4 @@ get "/websocket" do
       settings.sockets.delete(ws)
     end
   end
-  
 end
