@@ -16,11 +16,6 @@ THREE.PointerLockControls = function ( camera ) {
 	yawObject.position.y = 10;
 	yawObject.add( pitchObject );
 
-	var cubeGeo = new THREE.CubeGeometry( 20, 20, 20 );
-	var cubeMat = new THREE.MeshPhongMaterial( { color: 0xFF0000 } );
-	cubeMat.opacity = 0.5
-	cubeMat.transparent = true;
-
 	var moveForward = false;
 	var moveBackward = false;
 	var moveLeft = false;
@@ -36,15 +31,14 @@ THREE.PointerLockControls = function ( camera ) {
 	var onMouseClick = function ( event ) {
 		
 		if ( scope.enabled === false ) return;
-		
-		var cube = new THREE.Mesh(cubeGeo, cubeMat);
 
+		msg = {
+			x: yawObject.position.x,
+			y: yawObject.position.y,
+			z: yawObject.position.z
+		};
 
-		cube.position.copy( yawObject.position );
-		objects.push(cube);
-		scene.add(cube);
-
-		ws.send("" + cube.position.x + "  " + cube.position.y + "  " + cube.position.z)
+		ws.send(JSON.stringify(msg));
 
 	};
 

@@ -3,6 +3,7 @@ var camera, scene, renderer;
 var geometry, material, mesh;
 var controls,time = Date.now();
 
+var cubeGeo, cubeMat;
 var objects = [];
 
 var ray;
@@ -104,7 +105,23 @@ animate();
 
 function init() {
     ws = new WebSocket( 'ws://' + window.location.host + "/websocket" );
-    ws.onmessage = function(m) { console.log('websocket message: ' +  m.data); };
+
+    cubeGeo = new THREE.CubeGeometry( 20, 20, 20 );
+    cubeMat = new THREE.MeshPhongMaterial( { color: 0xFF0000 } );
+    cubeMat.opacity = 0.5
+    cubeMat.transparent = true;
+
+    
+    ws.onmessage = function( msg ) { 
+
+        var cube = new THREE.Mesh(cubeGeo, cubeMat);
+
+        pos = JSON.parse(msg.data);
+        cube.position.set( pos.x, pos.y, pos.z);
+        objects.push(cube);
+        scene.add(cube);
+
+    };
 
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
 

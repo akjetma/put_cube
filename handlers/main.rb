@@ -15,7 +15,8 @@ get "/websocket" do
     end
 
     ws.onmessage do |msg|
-      p msg
+      print msg
+      print "\n"
       EM.next_tick do
         settings.sockets.each{ |s| s.send(msg) }
       end
