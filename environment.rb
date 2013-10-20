@@ -7,5 +7,6 @@ Dir["#{ File.dirname(__FILE__) }/helpers/*.rb"].each { |file| require file }
 
 set :server, 'thin'
 set :sockets, []
+set :cubes, []
 
-helpers MainHelper
+helpers MainHelper, CubeHelper

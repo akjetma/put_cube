@@ -6,9 +6,8 @@
 THREE.PointerLockControls = function ( camera ) {
 
 	var scope = this;
-
 	camera.rotation.set( 0, 0, 0 );
-
+	
 	var pitchObject = new THREE.Object3D();
 	pitchObject.add( camera );
 
@@ -20,12 +19,10 @@ THREE.PointerLockControls = function ( camera ) {
 	var moveBackward = false;
 	var moveLeft = false;
 	var moveRight = false;
-
 	var isOnObject = false;
 	var canJump = false;
-
+	
 	var velocity = new THREE.Vector3();
-
 	var PI_2 = Math.PI / 2;
 
 	var onMouseClick = function ( event ) {
