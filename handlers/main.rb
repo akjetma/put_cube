@@ -3,28 +3,27 @@ get "/" do
 end
 
 get "/put_cube" do
-  erb :put_cube, :layout => :'layouts/put_cube'
-end
+  if request.websocket?
+    request.websocket do |ws|
+      
+      ws.onopen do
+        settings.sockets << ws
+      end
 
-get "/websocket" do
-  
-  request.websocket do |ws|
-    
-    ws.onopen do
-      settings.sockets << ws
-    end
+      ws.onmessage do |msg|
+        print msg
+        print "\n"
+        EM.next_tick do
+          settings.sockets.each{ |s| s.send(msg) }
+        end
+      end
 
-    ws.onmessage do |msg|
-      print msg
-      print "\n"
-      EM.next_tick do
-        settings.sockets.each{ |s| s.send(msg) }
+      ws.onclose do
+        settings.sockets.delete(ws)
       end
     end
-
-    ws.onclose do
-      settings.sockets.delete(ws)
-    end
+  else
+    erb :put_cube, :layout => :'layouts/put_cube'
   end
 end
 

@@ -104,7 +104,7 @@ init();
 animate();
 
 function init() {
-    ws = new WebSocket( 'ws://' + window.location.host + "/websocket" );
+    ws = new WebSocket( 'ws://' + window.location.host + window.location.pathname );
 
     cubeGeo = new THREE.CubeGeometry( 20, 20, 20 );
     cubeMat = new THREE.MeshPhongMaterial( { color: 0xFF0000 } );
