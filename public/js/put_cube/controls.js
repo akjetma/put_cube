@@ -1,7 +1,6 @@
-/**
- * @author mrdoob / http://mrdoob.com/
- * modified a bit by @_magnusmagnus
- */
+/*
+* modified version of THREE.PointerLockControls by mrdoob / http://mrdoob.com
+*/
 
 THREE.PointerLockControls = function ( camera ) {
 
@@ -21,7 +20,6 @@ THREE.PointerLockControls = function ( camera ) {
 	var moveRight = false;
 	var isOnObject = false;
 	var canJump = false;
-	
 	var velocity = new THREE.Vector3();
 	var PI_2 = Math.PI / 2;
 
@@ -29,13 +27,13 @@ THREE.PointerLockControls = function ( camera ) {
 		
 		if ( scope.enabled === false ) return;
 
-		msg = {
+		var msg = {
 			x: yawObject.position.x,
 			y: yawObject.position.y,
 			z: yawObject.position.z
 		};
 
-		ws.send(JSON.stringify(msg));
+		ws.send( JSON.stringify(msg) );
 
 	};
 
@@ -165,7 +163,6 @@ THREE.PointerLockControls = function ( camera ) {
 
 		if ( moveForward ) velocity.z -= 0.12 * delta;
 		if ( moveBackward ) velocity.z += 0.12 * delta;
-
 		if ( moveLeft ) velocity.x -= 0.12 * delta;
 		if ( moveRight ) velocity.x += 0.12 * delta;
 
