@@ -29,7 +29,7 @@ THREE.PointerLockControls = function ( camera ) {
 
 		var d_func = controls.getDirection();
 		var d = d_func( new THREE.Vector3() );
-		d.multiplyScalar( 10 );
+		d.multiplyScalar( 50 );
 		d.add( yawObject.position );
 
 		var msg = {
