@@ -14,8 +14,8 @@ class Orchestrate
   end
  
 # -----search-----
-  def self.search(collection, field, value)
-    url = "#{ @base_url }/#{ collection }/?query=#{ field }:#{ value }"
+  def self.search(collection, query)
+    url = "#{ @base_url }/#{ collection }/?query=#{ query }"
     response = RestClient.get(url, :accept => 'application/json')
     return JSON.parse(response)
   end

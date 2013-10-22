@@ -76,18 +76,13 @@ animate();
 
 function init() {
     
-    var cubeGeo = new THREE.CubeGeometry( 20, 20, 20 );
-    var cubeMat = new THREE.MeshPhongMaterial( { color: 0xFF0000, opacity: 0.5, transparent: true } );
-    
     ws = new WebSocket( 'ws://' + window.location.host + window.location.pathname );
     ws.onmessage = function(msg) { 
 
-        pos = JSON.parse(msg.data);
+        var coordinates = JSON.parse(msg.data);
         
-        var cube = new THREE.Mesh(cubeGeo, cubeMat);
-        cube.position.set( pos.x, pos.y, pos.z);
-        objects.push(cube);
-        scene.add(cube);
+        var vector = new THREE.Vector3( coordinates.x, coordinates.y, coordinates.z );
+        addCube( vector );
 
     };
 
@@ -147,5 +142,17 @@ function animate() {
     controls.update( Date.now() - time );
     renderer.render( scene, camera );
     time = Date.now();
+
+}
+
+function addCube( v ) {
+
+    var cubeGeo = new THREE.CubeGeometry( 20, 20, 20 );
+    var cubeMat = new THREE.MeshPhongMaterial( { color: 0xFF0000, opacity: 0.5, transparent: true } );
+
+    var cube = new THREE.Mesh(cubeGeo, cubeMat);
+    cube.position.copy( v );
+    objects.push(cube);
+    scene.add(cube);
 
 }

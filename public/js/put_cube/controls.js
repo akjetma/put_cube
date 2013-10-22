@@ -27,10 +27,15 @@ THREE.PointerLockControls = function ( camera ) {
 		
 		if ( scope.enabled === false ) return;
 
+		var d_func = controls.getDirection();
+		var d = d_func( new THREE.Vector3() );
+		d.multiplyScalar( 10 );
+		d.add( yawObject.position );
+
 		var msg = {
-			x: yawObject.position.x,
-			y: yawObject.position.y,
-			z: yawObject.position.z
+			x: d.x,
+			y: d.y,
+			z: d.z
 		};
 
 		ws.send( JSON.stringify(msg) );
