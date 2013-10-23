@@ -3,9 +3,13 @@ get "/" do
 end
 
 get "/put_cube" do
-  pass unless request.websocket?
-    
+  pass if request.websocket?
+  erb :put_cube, :layout => :'layouts/put_cube'
+end
+
+get "/put_cube" do
   request.websocket do |ws|
+    
     ws.onopen do
       settings.sockets << ws
       
@@ -27,10 +31,6 @@ get "/put_cube" do
     ws.onclose do
       settings.sockets.delete(ws)
     end
+
   end
-
-end
-
-get "/put_cube" do
-  erb :put_cube, :layout => :'layouts/put_cube'
 end
