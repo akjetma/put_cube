@@ -10,7 +10,6 @@ Dir["#{ File.dirname(__FILE__) }/models/*.rb"].each { |file| require file }
 
 configure :production do
   MongoMapper.setup({ 'production' => { 'uri' => ENV['MONGOHQ_URL'] } }, 'production')
-  MongoMapper.database = 'cubes'
 end
 
 configure :development do 
