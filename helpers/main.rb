@@ -1,4 +1,4 @@
-module MainHelper
+module LayoutHelper
   def include_css(*names)
     names.collect { |name| "<link href='/css/#{ name }.css' rel='stylesheet' type='text/css'>" }.join("\n")
   end

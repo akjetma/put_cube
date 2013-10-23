@@ -1,9 +1,9 @@
 var camera, scene, renderer;
-var geometry, material, mesh;
+var cubeGeo, cubeMat;
 var controls, time = Date.now();
 var ws, ray, objects = [];
 
-// Pointer Lock Stuff
+// Begin PointerLock Stuff
 var blocker = document.getElementById( 'blocker' );
 var instructions = document.getElementById( 'instructions' );
 var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
@@ -68,8 +68,7 @@ if (havePointerLock) {
 } else {
     instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
 }
-// End Pointer Lock Stuff
-
+// End PointerLock Stuff
 
 init();
 animate();
@@ -89,6 +88,9 @@ function init() {
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
     scene = new THREE.Scene();
 
+    cubeGeo = new THREE.CubeGeometry( 20, 20, 20 );
+    cubeMat = new THREE.MeshPhongMaterial( { color: 0xFF0000, opacity: 0.5, transparent: true } );
+
     var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
     light.position.set( 1, 1, 1 );
     scene.add( light );
@@ -103,11 +105,11 @@ function init() {
     ray = new THREE.Raycaster();
     ray.ray.direction.set( 0, -1, 0 );
 
-    geometry = new THREE.PlaneGeometry( 2000, 2000, 20, 20 );
-    geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
-    material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } );
-    mesh = new THREE.Mesh( geometry, material );
-    scene.add( mesh );
+    var floorGeo = new THREE.PlaneGeometry( 2000, 2000, 20, 20 );
+    floorGeo.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
+    var floorMat = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } );
+    var floor = new THREE.Mesh( floorGeo, floorMat );
+    scene.add( floor );
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
@@ -131,6 +133,7 @@ function animate() {
 
     controls.isOnObject( false );
     ray.ray.origin.copy( controls.getObject().position );
+    
     var intersections = ray.intersectObjects( objects );
     if ( intersections.length > 0 ) {
         var distance = intersections[ 0 ].distance;
@@ -147,12 +150,9 @@ function animate() {
 
 function addCube( v ) {
 
-    var cubeGeo = new THREE.CubeGeometry( 20, 20, 20 );
-    var cubeMat = new THREE.MeshPhongMaterial( { color: 0xFF0000, opacity: 0.5, transparent: true } );
-
-    var cube = new THREE.Mesh(cubeGeo, cubeMat);
+    var cube = new THREE.Mesh( cubeGeo, cubeMat );
     cube.position.copy( v );
-    objects.push(cube);
-    scene.add(cube);
+    objects.push( cube );
+    scene.add( cube );
 
 }
