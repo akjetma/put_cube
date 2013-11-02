@@ -19,6 +19,7 @@ function init() {
 
     oscillator.connect(amplifier);
     amplifier.connect(context.destination);
+
   }
   catch(e) {
     alert('Web Audio API is not supported in this browser');
