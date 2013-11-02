@@ -2,12 +2,13 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Site</title>
-        <%= include_css('lib/bootstrap', 'lib/bootstrap-theme', 'main') %>
+        <title><%= title %></title>
+        <%= include_css('lib/bootstrap') %>
         <%= include_js('lib/jquery', 'lib/bootstrap') %>
     </head>
     <body>
-        <div class="container main-container">
+        <div class="container">
+            <%= erb :'/elements/header', :locals => { :text => title } %>
             <%= yield %>
         </div>
     </body>

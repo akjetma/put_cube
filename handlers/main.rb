@@ -1,5 +1,9 @@
 get "/" do
-  erb :index, :layout => :'layouts/main'
+  erb :index, :layout => :'layouts/main', :locals => { :title => "Heeyyyyy" }
+end
+
+get "/oscillate" do
+  erb :oscillate, :layout => :'layouts/main', :locals => { :title => "OSCILLATE" }
 end
 
 get "/put_cube" do
