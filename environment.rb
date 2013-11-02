@@ -20,4 +20,4 @@ end
 set :server, 'thin'
 set :sockets, []
 
-helpers LayoutHelper
+helpers LayoutHelper, OscillateHelper
