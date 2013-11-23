@@ -4,10 +4,10 @@ module OscillateHelper
     ( 2 ** ( ( key_index - 49 ) / 12.0 ) ) * 440
   end
 
-  def key_name(key_index)
-    case (key_index % 12)
+  def key_name(key_index) #key_index
+    case ( ( key_index - 1 ) % 12 )
     when 0
-      "A"
+      "A" 
     when 1
       "A#"
     when 2
@@ -34,7 +34,7 @@ module OscillateHelper
   end
 
   def key_color(key_index)
-    [0, 2, 3, 5, 7, 8, 10].include?(key_index % 12) ? "btn-default" : "btn-primary"
+    [0, 2, 3, 5, 7, 8, 10].include?( ( key_index - 1 ) % 12) ? "btn-default" : "btn-primary"
   end
 
 end

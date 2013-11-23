@@ -68,6 +68,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  addressable
   bson_ext
   json
   mongo_mapper

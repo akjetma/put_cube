@@ -13,4 +13,6 @@ gem 'bson_ext'
 gem 'rest-client'
 gem 'json'
 
+gem 'addressable'
+
 gem 'tux', :group => :development
