@@ -1,6 +1,6 @@
 get "/put_cube" do
   pass if request.websocket?
-  erb :'/demos/put_cube/', :layout => :'layouts/put_cube'
+  erb :put_cube
 end
 
 get "/put_cube" do

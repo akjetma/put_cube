@@ -1,13 +1,16 @@
-var errorCallback = function (e) { console.log(e); };
+(function () {
 
-var video = document.querySelector('video');
-var constraints = { video: true };
+  var errorCallback = function (e) { console.log(e); };
 
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  var video = document.querySelector('video');
+  var constraints = { video: true };
 
-if (navigator.getUserMedia) {
-  navigator.getUserMedia(constraints, function (stream) {
-    video.src = window.URL.createObjectURL(stream);
-  }, errorCallback);
-}
-  
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia(constraints, function (stream) {
+      video.src = window.URL.createObjectURL(stream);
+    }, errorCallback);
+  }
+    
+})();    
