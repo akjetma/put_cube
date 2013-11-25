@@ -1,7 +1,6 @@
 (function () {
 
   var errorCallback = function (e) { console.log(e); };
-
   var video = document.querySelector('video');
   var constraints = { video: true };
 
