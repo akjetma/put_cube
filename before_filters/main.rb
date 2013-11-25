@@ -9,8 +9,8 @@ before "/oscillate" do
 end
 
 before "/put_cube" do
-  @css = ['put_cube']
-  @js = ['/lib/three', '/put_cube/controls']
+  @js << '/lib/three'
+  @js << '/put_cube/controls'
   @title = "Put Cube"
 end
 
