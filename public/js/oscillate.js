@@ -2,9 +2,11 @@ var context;
 var Voice;
 active_voices = {};
 
-$( document ).ready( function () {
-  
+$(document).ready(function () {
   init();
+
+  var height = $('#keys').height();
+  $('#visualization-container').height(height);
 
   Voice = (function(context) {
     
@@ -72,3 +74,4 @@ $('.btn').on('mouseup', function () {
   delete active_voices[note];
 
 });
+
