@@ -3,7 +3,7 @@ var cubeGeo, cubeMat;
 var controls, time = Date.now();
 var ws, ray, objects = [];
 
-var element = document.getElementById('put_cube_container');
+var element = document.getElementById('put-cube-container');
 var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
 if (havePointerLock) {    
@@ -41,7 +41,7 @@ function init() {
     addCube(vector);
   };
 
-  var width = $('#put_cube_container').width();
+  var width = $('#put-cube-container').width();
   var aspect = 16 / 9;
   var height = width / aspect;
   
@@ -74,7 +74,7 @@ function init() {
   renderer = new THREE.WebGLRenderer();
   renderer.setSize( width, height );
 
-  document.getElementById('put_cube_container').appendChild(renderer.domElement);
+  document.getElementById('put-cube-container').appendChild(renderer.domElement);
 }
 
 function animate() {
