@@ -7088,3 +7088,8 @@ td.visible-print {
     display: none !important;
   }
 }
+
+#video {
+  position: absolute;
+  visibility: hidden;
+}
