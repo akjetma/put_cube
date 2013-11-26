@@ -1,7 +1,6 @@
 before do
   @css = ['/lib/bootstrap']
   @js = ['/lib/jquery', '/lib/bootstrap']
-  @title = "Heeyyy"
 end
 
 before "/oscillate" do
