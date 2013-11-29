@@ -4,7 +4,7 @@
     <div class="col-md-1" id="keys">
       <% 12.times do |i| %>
         <% key = 40 + i %> 
-        <a data-frequency=<%= frequency(key) %> class="btn <%= key_color(key) %> btn-block" href="#">
+        <a data-frequency=<%= frequency(key) %> class="btn <%= key_color(key) %> btn-block">
           <%= key_name(key) %>
         </a>
       <% end %>

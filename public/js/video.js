@@ -1,12 +1,26 @@
-(function () {
-  
+
   var canvas = document.querySelector('canvas');
   var context = canvas.getContext('2d');
   var video = document.querySelector('video');
   var constraints = { video: true };
-  var errorCallback = function (e) { console.log(e); };
-  var draw = function (v, c) {
+  var width, 
+      height,
+      pixelCount;
+  
+  function errorCallback (e) { console.log(e); };
+  function draw (v, c) {
     c.drawImage(v, 0, 0);
+    var imageData = c.getImageData(0, 0, width, height);
+    var pixels = imageData.data;
+
+    for (var i=0; i<pixelCount; i++) {
+      var p = i * 4;
+      pixels[p] = 255 - pixels[p];
+      pixels[p+1] = 255 - pixels[p+1];
+      pixels[p+2] = 255 - pixels[p+2];
+    }
+    c.putImageData(imageData, 0, 0);  
+
     setTimeout(function () { draw(v, c); }, 20);
   };
 
@@ -18,9 +32,11 @@
   }
 
   video.addEventListener('canplay', function (e) {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    width = video.videoWidth;
+    height = video.videoHeight;
+    pixels = width * height;
+    canvas.width = width;
+    canvas.height = height;
     draw(video, context);
   }, false);
 
-})();
