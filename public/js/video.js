@@ -1,7 +1,7 @@
 
-  var canvas = document.querySelector('canvas');
+  var canvas = document.getElementById('canvas');
   var context = canvas.getContext('2d');
-  var video = document.querySelector('video');
+  var video = document.getElementById('video');
   var constraints = { video: true };
   var width, 
       height,
@@ -34,7 +34,7 @@
   video.addEventListener('canplay', function (e) {
     width = video.videoWidth;
     height = video.videoHeight;
-    pixels = width * height;
+    pixelCount = width * height;
     canvas.width = width;
     canvas.height = height;
     draw(video, context);

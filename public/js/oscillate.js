@@ -65,6 +65,6 @@ $(document).ready(function () {
     };
 
     return Voice;
-  })(context);
+  }(context));
 
 });
