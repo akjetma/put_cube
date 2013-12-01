@@ -2,18 +2,25 @@
 
   var inputCanvas = document.createElement('canvas');
   var inputContext = inputCanvas.getContext('2d');
-
   var outputCanvas = document.getElementById('output');
   var outputContext = outputCanvas.getContext('2d');
-
   var video = document.getElementById('video');
-  
   var constraints = { video: true };
   var width;
   var height;
-
   var outputImageData;
-  var currentPixelIndex;
+  var currentPixelIndex = 0;
+
+  ImageData.prototype.invertPixels = function () {
+    var pixels = this.data;
+
+    for (var i=0; i<pixels.length / 4; i++) {
+      var p = i * 4;
+      pixels[p] = 255 - pixels[p];
+      pixels[p+1] = 255 - pixels[p+1];
+      pixels[p+2] = 255 - pixels[p+2];
+    }
+  };
 
   function initializeCanvases () {
     inputContext.drawImage(video, 0, 0);
@@ -22,7 +29,7 @@
 
   function draw () {
     inputContext.drawImage(video, 0, 0);
-    drawScanner();
+    
 
     setTimeout(function () {
       draw(); 
@@ -42,19 +49,6 @@
     }
     outputContext.putImageData(outputImageData, 0, 0);
     currentPixelIndex = (nextPixelIndex < width * height) ? nextPixelIndex : 0;
-  };
-
-  function drawInverted () {
-    var imageData = inputContext.getImageData(0, 0, width, height);
-    var pixels = imageData.data;
-
-    for (var i=0; i<width * height; i++) {
-      var p = i * 4;
-      pixels[p] = 255 - pixels[p];
-      pixels[p+1] = 255 - pixels[p+1];
-      pixels[p+2] = 255 - pixels[p+2];
-    }
-    outputContext.putImageData(imageData, 0, 0);
   };
 
   function errorCallback (e) { 
