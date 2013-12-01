@@ -16,7 +16,8 @@
   var currentPixelIndex;
 
   function initializeCanvases () {
-
+    inputContext.drawImage(video, 0, 0);
+    outputImageData = inputContext.getImageData(0, 0, width, height);
   };
 
   function draw () {
@@ -77,9 +78,6 @@
     outputCanvas.height = height;
 
     initializeCanvases();
-
-    inputContext.drawImage(video, 0, 0);
-    outputImageData = inputContext.getImageData(0, 0, width, height);
     draw();
   }, false);
 
