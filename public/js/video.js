@@ -11,7 +11,7 @@
   var outputImageData;
   var currentPixelIndex = 0;
 
-  ImageData.prototype.invertPixels = function () {
+  ImageData.prototype.toInverted = function () {
     var pixels = this.data;
 
     for (var i=0; i<pixels.length / 4; i++) {
@@ -33,6 +33,32 @@
       pixels[p+2] = intensity;
     }
   };
+
+  ImageData.prototype.toChannelIntensity = function (channel) {
+    var pixels = this.data;
+    var ci = this.channelIndex[channel];
+
+    for (var i=0; i<pixels.length / 4; i++) {
+      var p = i * 4;
+      var cVal = pixels[p+ci];
+      pixels[p] = cVal;
+      pixels[p+1] = cVal;
+      pixels[p+2] = cVal;
+    }
+  };
+  
+  ImageData.prototype.channelIndex = {
+    'r': 0,
+    'R': 0,
+    'red': 0,
+    'g': 1,
+    'G': 1,
+    'green': 1,
+    'b': 2,
+    'B': 2,
+    'blue': 2
+  };
+
 
   function initializeCanvases () {
     inputContext.drawImage(video, 0, 0);
