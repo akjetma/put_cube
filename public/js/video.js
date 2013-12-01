@@ -22,6 +22,18 @@
     }
   };
 
+  ImageData.prototype.toBW = function () {
+    var pixels = this.data;
+
+    for (var i=0; i<pixels.length / 4; i++) {
+      var p = i * 4;
+      var intensity = Math.floor((pixels[p] + pixels[p+1] + pixels[p+2]) / 3);
+      pixels[p] = intensity;
+      pixels[p+1] = intensity;
+      pixels[p+2] = intensity;
+    }
+  };
+
   function initializeCanvases () {
     inputContext.drawImage(video, 0, 0);
     outputImageData = inputContext.getImageData(0, 0, width, height);
@@ -29,7 +41,9 @@
 
   function draw () {
     inputContext.drawImage(video, 0, 0);
-    
+    var imgData = inputContext.getImageData(0, 0, width, height);
+    imgData.toBW();
+    outputContext.putImageData(imgData, 0, 0);
 
     setTimeout(function () {
       draw(); 
