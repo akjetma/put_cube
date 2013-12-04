@@ -34,6 +34,17 @@
     }
   };
 
+  ImageData.prototype.shiftChannels = function () {
+    var pixels = this.data;
+
+    for (var i=0; i<pixels.length / 4; i++) {
+      var p = i * 4;
+      pixels[p] = pixels[p+1];
+      pixels[p+1] = pixels[p+2];
+      pixels[p+2] = pixels[p];
+    }
+  }
+ 
   ImageData.prototype.toChannelIntensity = function (channel) {
     var pixels = this.data;
     var ci = this.channelIndex[channel];
@@ -46,7 +57,7 @@
       pixels[p+2] = cVal;
     }
   };
-  
+
   ImageData.prototype.channelIndex = {
     'r': 0,
     'R': 0,
@@ -59,7 +70,6 @@
     'blue': 2
   };
 
-
   function initializeCanvases () {
     inputContext.drawImage(video, 0, 0);
     outputImageData = inputContext.getImageData(0, 0, width, height);
@@ -67,16 +77,14 @@
 
   function draw () {
     inputContext.drawImage(video, 0, 0);
-    var imgData = inputContext.getImageData(0, 0, width, height);
-    imgData.toBW();
-    outputContext.putImageData(imgData, 0, 0);
+    drawScanner();
 
     setTimeout(function () {
       draw(); 
     }, 1000/60);
   };
 
-  function drawScanner (startPixelIndex) {
+  function drawScanner () {
     var inputPixels = inputContext.getImageData(0, 0, width, height).data;
     var outputPixels = outputImageData.data;
     var nextPixelIndex = currentPixelIndex + width + 1;
