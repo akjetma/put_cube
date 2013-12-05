@@ -9,7 +9,7 @@
   var width;
   var height;
   var outputImageData;
-  var currentPixelIndex = 0;
+  var pixelIndices = [];
 
   ImageData.prototype.toInverted = function () {
     var pixels = this.data;
@@ -73,6 +73,10 @@
   function initializeCanvases () {
     inputContext.drawImage(video, 0, 0);
     outputImageData = inputContext.getImageData(0, 0, width, height);
+
+    var numPix = width * height;
+    var bufferLength = numPix / 4;
+    pixelIndices = [0, 1*bufferLength, 2*bufferLength, 3*bufferLength];
   };
 
   function draw () {
@@ -87,16 +91,19 @@
   function drawScanner () {
     var inputPixels = inputContext.getImageData(0, 0, width, height).data;
     var outputPixels = outputImageData.data;
-    var nextPixelIndex = currentPixelIndex + width + 1;
     
-    for (var i=currentPixelIndex; i<nextPixelIndex; i++) {
-      var p = i * 4;
-      outputPixels[p] = inputPixels[p];
-      outputPixels[p+1] = inputPixels[p+1];
-      outputPixels[p+2] = inputPixels[p+2];
+    for (var i=0; i<pixelIndices.length; i++) {
+      pi = pixelIndices[i];
+      for (var j=pi; j<pi+width; j++) {
+        var p = j * 4;
+
+        outputPixels[p] = inputPixels[p];
+        outputPixels[p+1] = inputPixels[p+1];
+        outputPixels[p+2] = inputPixels[p+2];
+      }
+      pixelIndices[i] = (pi + width < width * height) ? pi + width : 0;
     }
     outputContext.putImageData(outputImageData, 0, 0);
-    currentPixelIndex = (nextPixelIndex < width * height) ? nextPixelIndex : 0;
   };
 
   function errorCallback (e) { 
