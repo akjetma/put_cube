@@ -1,10 +1,20 @@
+(function () {
 
   var context;
-  init();
+  var scales = {
+    c_major: [
+      freq(40),
+      freq(42),
+      freq(44),
+      freq(45),
+      freq(47),
+      freq(49),
+      freq(51),
+      freq(52)
+    ]
+  };
 
-  function freq (key_index) {
-    return 440 * Math.pow(2, (key_index - 49) / 12.0)
-  }
+  init();
 
   function init() {
     try {
@@ -16,7 +26,7 @@
     }
 
     var height = $('#keys').height();
-    $('#visualization-container').height(height - 30);
+    $('#visualization-container').height(height);
     $('.btn').on('click', function () {
       var frequency = $(this).data('frequency');
       var duration = $(this).data('duration');
@@ -26,12 +36,16 @@
 
     $('#sequence').on('click', function () {
       var startTime = context.currentTime;
-      for (var i=0; i<12; i++) {
-        var frequency = freq(40 + i);
-        sequence(frequency, 1/8, (i+1)/8, 10, startTime);
-        startTime = startTime + 1;
+      for (var i=0; i<scales.c_major.length; i++) {
+        var frequency = scales.c_major[i];
+        sequence(frequency, 1/16, 1, 2, startTime);
+        startTime = startTime + 1/16;
       }
     });
+  }
+
+  function freq (key_index) {
+    return 440 * Math.pow(2, (key_index - 49) / 12.0)
   }
 
   function sequence (frequency, duration, period, count, startTime) {
@@ -50,3 +64,4 @@
     this.oscillator.stop(startTime + duration);
   };
 
+})();
