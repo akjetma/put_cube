@@ -31,7 +31,7 @@
       var frequency = $(this).data('frequency');
       var duration = $(this).data('duration');
       var startTime = context.currentTime;
-      sequence(frequency, duration, 4, 10, startTime);
+      sequence(frequency, duration / 4, 1, 10, startTime);
     });
 
     $('#sequence').on('click', function () {
