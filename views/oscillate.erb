@@ -7,12 +7,14 @@
         <div class="btn-group btn-group-justified">
           <% 4.times do |j| %>
             <% duration = j + 1 %>    
-            <a data-duration=<%= duration %> data-frequency=<%= frequency(key) %> class="btn <%= key_color(key) %>">
+            <a data-duration=<%= duration %> data-frequency=<%= frequency(key) %> data-note='<%= key_name(key) %>' class="btn <%= key_color(key) %>">
               <%= "#{duration}x #{key_name(key)}" %>
             </a>
           <% end %>
         </div>
       <% end %>
+      <br />
+      <button class="btn btn-info btn-lg btn-block" id="sequence" type="button">Sequence</button>
     </div>
     <div class="col-md-9">
       <div class="panel panel-default">
