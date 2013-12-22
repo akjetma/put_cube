@@ -1,15 +1,20 @@
 <div class="container" id="master">
   <%= erb :'/elements/header', :layout => false %>
   <div class="row">
-    <div class="col-md-1" id="keys">
+    <div class="col-md-3" id="keys">
       <% 12.times do |i| %>
-        <% key = 40 + i %> 
-        <a data-frequency=<%= frequency(key) %> class="btn <%= key_color(key) %> btn-block">
-          <%= key_name(key) %>
-        </a>
+        <% key = 40 + i %>
+        <div class="btn-group btn-group-justified">
+          <% 4.times do |j| %>
+            <% duration = j + 1 %>    
+            <a data-duration=<%= duration %> data-frequency=<%= frequency(key) %> class="btn <%= key_color(key) %>">
+              <%= "#{duration}x #{key_name(key)}" %>
+            </a>
+          <% end %>
+        </div>
       <% end %>
     </div>
-    <div class="col-md-11">
+    <div class="col-md-9">
       <div class="panel panel-default">
         <div class="panel-body" id="visualization-container">
         </div>
