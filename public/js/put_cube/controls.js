@@ -58,6 +58,7 @@ THREE.PointerLockControls = function ( camera ) {
 
 	var onKeyDown = function ( event ) {
 
+		event.preventDefault();
 		switch ( event.keyCode ) {
 
 			case 38: // up

@@ -1,27 +1,22 @@
-<div class="container" id="master">
-  <%= erb :'/elements/header', :layout => false %>
-  <div class="row">
-    <div class="col-md-3" id="keys">
-      <% 12.times do |i| %>
-        <% key = 40 + i %>
-        <div class="btn-group btn-group-justified">
-          <% 4.times do |j| %>
-            <% duration = j + 1 %>    
-            <a data-duration=<%= duration %> data-frequency=<%= frequency(key) %> data-note='<%= key_name(key) %>' class="btn <%= key_color(key) %>">
-              <%= "#{duration}x #{key_name(key)}" %>
-            </a>
-          <% end %>
-        </div>
-      <% end %>
-      <br />
-      <button class="btn btn-info btn-lg btn-block" id="sequence" type="button">Sequence</button>
-    </div>
-    <div class="col-md-9">
-      <div class="panel panel-default">
-        <div class="panel-body" id="visualization-container">
-        </div>
+<div class="row">
+  <% 12.times do |i| %>
+    <% key = 40 + i %>
+    <div class="col-sm-1">
+      <div class="btn-group-vertical">
+        <% 4.times do |j| %>
+          <% duration = (j + 1) / 4.0 %>    
+          <button type="button" class="note btn <%= key_color(key) %>" data-duration="<%= duration %>" data-frequency="<%= frequency(key) %>" data-note="<%= key_name(key) %>">
+            &#<%= 5776 + j %>
+          </button>
+        <% end %>
       </div>
     </div>
+  <% end %>
+</div>
+<br />
+<div class="row">
+  <div class="col-sm-12">
+    <button class="btn btn-success btn-lg btn-block" id="sequence" type="button">magic pattern</button>
   </div>
 </div>
 

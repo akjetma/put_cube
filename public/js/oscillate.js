@@ -1,17 +1,9 @@
 (function () {
-
+  
   var context;
   var scales = {
-    c_major: [
-      freq(40),
-      freq(42),
-      freq(44),
-      freq(45),
-      freq(47),
-      freq(49),
-      freq(51),
-      freq(52)
-    ]
+    c_major: [freq(40), freq(42), freq(44), freq(45), freq(47), freq(49), freq(51)],
+    c_s_major: [freq(29), freq(31), freq(34), freq(36), freq(38), freq(41), freq(43), freq(46), freq(48), freq(50), freq(53), freq(55), freq(58), freq(60), freq(62)]
   };
 
   init();
@@ -25,21 +17,23 @@
       alert('Web Audio API is not supported in this browser');
     }
 
-    var height = $('#keys').height();
-    $('#visualization-container').height(height);
-    $('.btn').on('click', function () {
-      var frequency = $(this).data('frequency');
-      var duration = $(this).data('duration');
+    $('.note').on('click', function () {
+      var frequency = parseFloat($(this).data('frequency'));
+      var duration = parseFloat($(this).data('duration'));
       var startTime = context.currentTime;
-      sequence(frequency, duration / 4, 1, 10, startTime);
+      new Note(frequency, duration, startTime);
     });
 
     $('#sequence').on('click', function () {
       var startTime = context.currentTime;
-      for (var i=0; i<scales.c_major.length; i++) {
-        var frequency = scales.c_major[i];
-        sequence(frequency, 1/16, 1, 2, startTime);
-        startTime = startTime + 1/16;
+      var keys = scales.c_s_major;
+      for (var i=0; i<keys.length; i++) {
+        for(var j=0; j<keys.length; j++) {
+          new Note(keys[j], 1/4, startTime);
+          startTime = startTime + 1/4;
+        }
+        sequence(keys[i], 1/4, 1/4, 8, startTime, i);
+        startTime = startTime + 1/4;
       }
     });
   }
@@ -58,6 +52,7 @@
 
   var Note = function (frequency, duration, startTime) {
     this.oscillator = context.createOscillator();
+    this.oscillator.type = "square";
     this.oscillator.frequency.value = frequency;
     this.oscillator.connect(context.destination);
     this.oscillator.start(startTime);

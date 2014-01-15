@@ -1,11 +1,8 @@
-<div class="container" id="master">
-  <%= erb :'/elements/header', :layout => false %>
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <canvas id="output"></canvas>
-    </div>
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <canvas id="output"></canvas>
+    <video id="video" autoplay></video>
   </div>
 </div>
-<video id="video" autoplay></video>
 
 <%= include_js(['video']) %>

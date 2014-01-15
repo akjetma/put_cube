@@ -8,6 +8,9 @@
     <%= include_js(@js) %>
   </head>
   <body>
-    <%= yield %>
+    <div class="container" id="master">
+      <%= erb :'elements/header' %>
+      <%= yield %>
+    </div>
   </body>
 </html>
