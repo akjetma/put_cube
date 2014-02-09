@@ -12,7 +12,7 @@ before "/oscillate" do
 end
 
 before "/put_cube" do
-  @js << 'lib/three'
+  @js << 'lib/three_r60'
   @js << 'put_cube/controls'
   @title = "Put Cube"
 end

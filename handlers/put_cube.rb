@@ -11,16 +11,15 @@ get "/put_cube" do
       
       EM.next_tick do
         cubes = Cube.all.collect(&:json)
-        cubes.each{ |cube| ws.send(cube) }
+        cubes.each { |cube| ws.send(cube) }
       end
     end
     
     ws.onmessage do |msg|
-      print msg + "\n"
       Cube.new_from_raw(msg)
       
       EM.next_tick do
-        settings.sockets.each{ |s| s.send(msg) }
+        settings.sockets.each { |s| s.send(msg) }
       end
     end
     

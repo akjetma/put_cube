@@ -58,7 +58,6 @@ THREE.PointerLockControls = function ( camera ) {
 
 	var onKeyDown = function ( event ) {
 
-		event.preventDefault();
 		switch ( event.keyCode ) {
 
 			case 38: // up
@@ -83,6 +82,7 @@ THREE.PointerLockControls = function ( camera ) {
 			case 32: // space
 				if ( canJump === true ) velocity.y += 7;
 				canJump = false;
+				event.preventDefault();
 				break;
 
 		}
