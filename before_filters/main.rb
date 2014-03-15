@@ -1,6 +1,6 @@
 before do
-  @css = ['lib/bootstrap']
-  @js = ['lib/jquery', 'lib/bootstrap']
+  @css = ['main']
+  @js = ['lib/jquery']
 end
 
 before "/canvas" do
